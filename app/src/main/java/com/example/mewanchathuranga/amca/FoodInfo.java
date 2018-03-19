@@ -5,7 +5,6 @@ package com.example.mewanchathuranga.amca;
  */
 
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,7 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.mewanchathuranga.amca.Adapters.FoodListAdapter;
+import com.example.mewanchathuranga.amca.Model.FoodListModel;
+import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class FoodInfo extends AppCompatActivity implements MyItemClickListener {
@@ -71,7 +75,7 @@ public class FoodInfo extends AppCompatActivity implements MyItemClickListener {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FoodListModel foodListModel = (FoodListModel) dataSnapshot.getValue(FoodListModel.class);
                 Log.d("ContentValues", "onComplete: Data retrieved to foodList");
-                Picasso.with(FoodInfo.this.context).load(foodListModel.getImage()).fit().into(FoodInfo.this.foodImg);
+                Picasso.get().load(foodListModel.getImage()).fit().into(FoodInfo.this.foodImg);
                 FoodInfo.this.collapsingToolbarLayout.setTitle(foodListModel.getName());
                 FoodInfo.this.foodName.setText(foodListModel.getName());
                 FoodInfo.this.foodDesc.setText(foodListModel.getDescription());

@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.example.mewanchathuranga.amca.Model.PendingDelivery;
 import com.example.mewanchathuranga.amca.R;
 import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
+
 import java.util.List;
 
-public class PendingDeliveryListAdapter extends Adapter<ViewHolder> {
+public class PendingDeliveryListAdapter extends Adapter<PendingDeliveryListAdapter.ViewHolder> {
     public String cOrderNo;
     private Context context;
     public List<PendingDelivery> getPendingList;

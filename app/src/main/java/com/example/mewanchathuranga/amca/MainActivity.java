@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            ((TextView) rootView.findViewById(R.id.section_label)).setText(getString(R.string.section_format, new Object[]{Integer.valueOf(getArguments().getInt(ARG_SECTION_NUMBER))}));
+            View rootView = inflater.inflate(com.example.mewanchathuranga.amca.R.layout.fragment_main, container, false);
+            ((TextView) rootView.findViewById(com.example.mewanchathuranga.amca.R.id.section_label)).setText(getString(R.string.section_format, new Object[]{Integer.valueOf(getArguments().getInt(ARG_SECTION_NUMBER))}));
             return rootView;
         }
     }
@@ -70,15 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(com.example.mewanchathuranga.amca.R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         this.mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         this.mViewPager = (ViewPager) findViewById(com.firebase.ui.auth.R.id.container);
         this.mViewPager.setAdapter(this.mSectionsPagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(com.example.mewanchathuranga.amca.R.id.tabs);
         this.mViewPager.addOnPageChangeListener(new TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new ViewPagerOnTabSelectedListener(this.mViewPager));
-        ((FloatingActionButton) findViewById(R.id.fab)).setOnClickListener(new OnClickListener() {
+        ((FloatingActionButton) findViewById(com.example.mewanchathuranga.amca.R.id.fab)).setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", 0).setAction("Action", null).show();
             }
@@ -86,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(com.example.mewanchathuranga.amca.R.menu.menu_main, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() == com.example.mewanchathuranga.amca.R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);

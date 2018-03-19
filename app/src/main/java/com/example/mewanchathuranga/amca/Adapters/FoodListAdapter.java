@@ -12,13 +12,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.mewanchathuranga.amca.Model.FoodListModel;
 import com.example.mewanchathuranga.amca.R;
 import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-public class FoodListAdapter extends Adapter<ViewHolder> implements OnClickListener {
+public class FoodListAdapter extends Adapter<FoodListAdapter.ViewHolder> implements OnClickListener {
     private Context context;
     private TextView descTxt;
     private ImageView foodImg;
@@ -65,7 +67,7 @@ public class FoodListAdapter extends Adapter<ViewHolder> implements OnClickListe
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         String sURL = ((FoodListModel) this.foodList.get(position)).getImage();
-        Picasso.with(this.context).load(((FoodListModel) this.foodList.get(position)).getImage()).fit().into(this.foodImg);
+        Picasso.get().load(((FoodListModel) this.foodList.get(position)).getImage()).fit().into(this.foodImg);
         holder.nameTxt.setText(((FoodListModel) this.foodList.get(position)).getName());
     }
 

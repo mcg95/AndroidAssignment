@@ -44,18 +44,18 @@ public class RegisterActivity extends AppCompatActivity {
                 String lName = lNameText.getText().toString();
                 String eMail = eMailText.getText().toString();
                 String pass = passText.getText().toString();
-                Object userMap = new HashMap();
-                userMap.put("First name", fName);
+                HashMap<String, String> userMap = new HashMap<String, String>();
+                userMap. put("First name", fName);
                 userMap.put("Last name", lName);
                 userMap.put("Email ID", eMail);
                 userMap.put("Password", pass);
                 RegisterActivity.this.mFirestore.collection("Users").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(RegisterActivity.this, "User Succesfully Registered", 0).show();
+                        Toast.makeText(RegisterActivity.this, "User Succesfully Registered", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), 0).show();
+                        Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

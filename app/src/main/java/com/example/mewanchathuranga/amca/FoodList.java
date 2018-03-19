@@ -15,6 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.mewanchathuranga.amca.Adapters.FoodListAdapter;
+import com.example.mewanchathuranga.amca.Model.FoodListModel;
+import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,14 +45,14 @@ public class FoodList extends AppCompatActivity implements MyItemClickListener {
 
     protected void onCreate(Bundle var1) {
         super.onCreate(var1);
-        this.setContentView(2131361819);
+        this.setContentView(R.layout.food_list);
         this.mAuth = FirebaseAuth.getInstance();
         this.foodList = new ArrayList();
         this.db = FirebaseDatabase.getInstance();
         this.mRef = this.db.getReference().child("Food");
         this.mAdapter = new FoodListAdapter(this, this.foodList);
         this.mAdapter.setOnItemClickListener(this);
-        this.recycler_food = (RecyclerView)this.findViewById(2131230922);
+        this.recycler_food = (RecyclerView)this.findViewById(R.id.recyclerFoodList);
         this.recycler_food.setHasFixedSize(true);
         this.layoutManager = new LinearLayoutManager(this);
         this.recycler_food.setLayoutManager(this.layoutManager);

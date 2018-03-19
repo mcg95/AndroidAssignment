@@ -1,8 +1,6 @@
 package com.example.mewanchathuranga.amca;
 
-/**
- * Created by mewanchathuranga on 19/03/2018.
- */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +26,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mewanchathuranga.amca.Adapters.OrderMenuAdapter;
+import com.example.mewanchathuranga.amca.Model.FoodMenuModel;
+import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.storage.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,10 +37,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHome extends AppCompatActivity implements OnNavigationItemSelectedListener, MyItemClickListener {
+public class OrderHome1 extends AppCompatActivity implements OnNavigationItemSelectedListener, MyItemClickListener {
     private ViewGroup container;
     private Context context;
     private FirebaseDatabase db;
@@ -60,7 +62,7 @@ public class OrderHome extends AppCompatActivity implements OnNavigationItemSele
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_home);
+        setContentView(com.example.mewanchathuranga.amca.R.layout.activity_order_home1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
@@ -70,20 +72,20 @@ public class OrderHome extends AppCompatActivity implements OnNavigationItemSele
         this.mRef = this.db.getReference().child("Menu");
         this.mAdapter = new OrderMenuAdapter(this, this.menuList);
         this.mAdapter.setOnItemClickListener(this);
-        ((FloatingActionButton) findViewById(R.id.fab)).setOnClickListener(new OnClickListener() {
+        ((FloatingActionButton) findViewById(com.example.mewanchathuranga.amca.R.id.fab)).setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", 0).setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(com.example.mewanchathuranga.amca.R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(com.example.mewanchathuranga.amca.R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        this.txtUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.currentUserEmail);
+        this.txtUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(com.example.mewanchathuranga.amca.R.id.emailText);
         this.txtUserEmail.setText("xxxx@gmail.com");
-        this.recycler_menu = (RecyclerView) findViewById(R.id.recycler_menu);
+        this.recycler_menu = (RecyclerView) findViewById(com.example.mewanchathuranga.amca.R.id.recycler_menu);
         this.recycler_menu.setHasFixedSize(true);
         this.layoutManager = new LinearLayoutManager(this);
         this.recycler_menu.setLayoutManager(this.layoutManager);
@@ -95,10 +97,10 @@ public class OrderHome extends AppCompatActivity implements OnNavigationItemSele
         this.db.getReference().child("Menu").addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot menuSnapshot : dataSnapshot.getChildren()) {
-                    OrderHome.this.menuList.add((FoodMenuModel) menuSnapshot.getValue(FoodMenuModel.class));
+                    OrderHome1.this.menuList.add((FoodMenuModel) menuSnapshot.getValue(FoodMenuModel.class));
                     Log.d("ContentValues", "onComplete: Data retrieved to menuList");
                 }
-                OrderHome.this.mAdapter.notifyDataSetChanged();
+                OrderHome1.this.mAdapter.notifyDataSetChanged();
                 Log.d("ContentValues", "onComplete: Dataset change notified.");
             }
 
@@ -108,7 +110,7 @@ public class OrderHome extends AppCompatActivity implements OnNavigationItemSele
     }
 
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(com.example.mewanchathuranga.amca.R.id.drawer_layout);
         if (drawer.isDrawerOpen(8388611)) {
             drawer.closeDrawer(8388611);
         } else {
@@ -117,12 +119,12 @@ public class OrderHome extends AppCompatActivity implements OnNavigationItemSele
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.order_home, menu);
+        getMenuInflater().inflate(com.example.mewanchathuranga.amca.R.menu.order_home1, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() == com.example.mewanchathuranga.amca.R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -130,9 +132,9 @@ public class OrderHome extends AppCompatActivity implements OnNavigationItemSele
 
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (!(id == R.id.order_menu || id == R.id.order_menu || id == R.id.cart || id == R.id.order_history || id != R.id.sign_out)) {
+        if (!(id == com.example.mewanchathuranga.amca.R.id.order_menu || id == com.example.mewanchathuranga.amca.R.id.order_menu || id == com.example.mewanchathuranga.amca.R.id.cart || id == com.example.mewanchathuranga.amca.R.id.order_history || id != com.example.mewanchathuranga.amca.R.id.sign_out)) {
         }
-        ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(8388611);
+        ((DrawerLayout) findViewById(com.example.mewanchathuranga.amca.R.id.drawer_layout)).closeDrawer(8388611);
         return true;
     }
 
@@ -141,6 +143,6 @@ public class OrderHome extends AppCompatActivity implements OnNavigationItemSele
         Intent foodList = new Intent(this, FoodList.class);
         foodList.putExtra("categoryid", ((FoodMenuModel) this.menuList.get(position)).getCategoryid());
         startActivity(foodList);
-        Toast.makeText(this, "Clicked Item: " + MenuList.getName(), 1).show();
+        Toast.makeText(this, "Clicked Item: " + MenuList.getName(), Toast.LENGTH_LONG).show();
     }
 }

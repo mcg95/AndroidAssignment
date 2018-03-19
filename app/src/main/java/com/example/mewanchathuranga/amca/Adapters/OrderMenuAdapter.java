@@ -65,7 +65,7 @@ public class OrderMenuAdapter extends Adapter<OrderMenuAdapter.ViewHolder> imple
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         String sURL = ((FoodMenuModel) this.menuList.get(position)).getImage();
-        Picasso.with(this.context).load(((FoodMenuModel) this.menuList.get(position)).getImage()).fit().into(this.imgMenu);
+        Picasso.get().load(((FoodMenuModel) this.menuList.get(position)).getImage()).fit().into(this.imgMenu);
         holder.txtMenuName.setText(((FoodMenuModel) this.menuList.get(position)).getName());
     }
 

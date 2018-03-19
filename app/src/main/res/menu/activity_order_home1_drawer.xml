@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:icon="@drawable/ic_ordermenu" android:id="@+id/order_menu" android:title="Order Menu" />
+        <item android:icon="@drawable/ic_shopping" android:id="@+id/cart" android:title="Shopping Cart" />
+        <item android:icon="@drawable/ic_order_history" android:id="@+id/order_history" android:title="Order History" />
+        <item android:icon="@drawable/ic_sign_out" android:id="@+id/sign_out" android:title="Sign Out" />
+    </group>
+</menu>
+
+
