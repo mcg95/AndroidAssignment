@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "52903090059",
+    "firebase_url": "https://amca-2b1c4.firebaseio.com",
+    "project_id": "amca-2b1c4",
+    "storage_bucket": "amca-2b1c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52903090059:android:1bfd4c3c7c291041",
+        "android_client_info": {
+          "package_name": "com.example.mewanchathuranga.amca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52903090059-kphhe7ninbpmi4hi9ihr2k47jfjqv3ta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mewanchathuranga.amca",
+            "certificate_hash": "34c1a63939b4ab9d44cb164d5334f787f60351fd"
+          }
+        },
+        {
+          "client_id": "52903090059-vi1hor6r4dkv91o8aqme1c136f149rcb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQNnBG2isWnKl6jc4AJeReV3uY1jeVfgY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52903090059-vi1hor6r4dkv91o8aqme1c136f149rcb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

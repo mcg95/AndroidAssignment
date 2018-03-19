@@ -27,7 +27,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mewanchathuranga.amca.Adapters.PendingDeliveryListAdapter;
+import com.example.mewanchathuranga.amca.Model.PendingDelivery;
 import com.example.mewanchathuranga.amca.R;
+import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
 import com.firebase.ui.storage.BuildConfig;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -41,6 +44,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,7 +144,7 @@ public class JobTab extends Fragment implements MyItemClickListener {
                         }
                     }
                     this.mPermissionsGranted = Boolean.valueOf(true);
-                    Toast.makeText(getActivity(), "Location Permissions Granted", 0).show();
+                    Toast.makeText(getActivity(), "Location Permissions Granted", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 return;
@@ -163,11 +167,11 @@ public class JobTab extends Fragment implements MyItemClickListener {
                             double tLat = tempCurrentLocation.latitude;
                             JobTab.this.Lng = tLng;
                             JobTab.this.Lat = tLat;
-                            Toast.makeText(JobTab.this.getActivity(), "Current Location - Lat: " + tLat + " Lng: " + tLng, 1).show();
+                            Toast.makeText(JobTab.this.getActivity(), "Current Location - Lat: " + tLat + " Lng: " + tLng, Toast.LENGTH_LONG).show();
                             return;
                         }
                         Log.d("ContentValues", "onComplete: Location NULL");
-                        Toast.makeText(JobTab.this.getActivity(), "Location was not retrievable.", 0).show();
+                        Toast.makeText(JobTab.this.getActivity(), "Location was not retrievable.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -221,7 +225,7 @@ public class JobTab extends Fragment implements MyItemClickListener {
         PendingDelivery DeliList = (PendingDelivery) this.deliList.get(position);
         this.gPosition = position;
         if (DeliList != null) {
-            Toast.makeText(getActivity(), DeliList.getOrderNo(), 0).show();
+            Toast.makeText(getActivity(), DeliList.getOrderNo(), Toast.LENGTH_SHORT).show();
             Log.d("ContentValues", "DeliList: " + DeliList.getdTimeFrame());
             String textOrderNo = DeliList.getOrderNo();
             String textOrderTime = DeliList.getOrderTime();
@@ -256,7 +260,7 @@ public class JobTab extends Fragment implements MyItemClickListener {
                     JobTab.this.delTimeFrame.setText(BuildConfig.FLAVOR);
                     JobTab.this.orderTime.setText(BuildConfig.FLAVOR);
                     JobTab.this.totalAmount.setText(BuildConfig.FLAVOR);
-                    Toast.makeText(JobTab.this.getActivity(), "Delivery Completed! Thank You!", 0).show();
+                    Toast.makeText(JobTab.this.getActivity(), "Delivery Completed! Thank You!", Toast.LENGTH_SHORT).show();
                     Log.d("ContentValues", "Delivery Completed!");
                 }
             });
