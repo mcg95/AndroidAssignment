@@ -27,9 +27,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.mewanchathuranga.amca.Adapters.OrderMenuAdapter;
-import com.example.mewanchathuranga.amca.Model.FoodMenuModel;
-import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.storage.R;
 import com.google.firebase.auth.FirebaseAuth;

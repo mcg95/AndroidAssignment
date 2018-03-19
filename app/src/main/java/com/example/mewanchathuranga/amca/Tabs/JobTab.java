@@ -26,10 +26,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.example.mewanchathuranga.amca.Adapters.PendingDeliveryListAdapter;
-import com.example.mewanchathuranga.amca.Model.PendingDelivery;
+
 import com.example.mewanchathuranga.amca.R;
-import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
 import com.firebase.ui.storage.BuildConfig;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

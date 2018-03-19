@@ -15,9 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.mewanchathuranga.amca.Adapters.FoodListAdapter;
-import com.example.mewanchathuranga.amca.Model.FoodListModel;
-import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
