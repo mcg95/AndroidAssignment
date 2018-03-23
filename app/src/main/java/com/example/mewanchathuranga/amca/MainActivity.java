@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(com.example.mewanchathuranga.amca.R.layout.fragment_main, container, false);
-            ((TextView) rootView.findViewById(com.example.mewanchathuranga.amca.R.id.section_label)).setText(getString(R.string.section_format, new Object[]{Integer.valueOf(getArguments().getInt(ARG_SECTION_NUMBER))}));
+            ((TextView) rootView.findViewById(com.example.mewanchathuranga.amca.R.id.section_label)).setText(getString(com.example.mewanchathuranga.amca.R.string.section_format, new Object[]{Integer.valueOf(getArguments().getInt(ARG_SECTION_NUMBER))}));
             return rootView;
         }
     }

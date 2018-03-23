@@ -21,6 +21,7 @@ public class FoodListModel {
         this.menuid = menuid;
         this.foodid = foodkey;
     }
+    public FoodListModel(){}
 
     public String getFoodid() {
         return this.foodid;

@@ -6,24 +6,25 @@ package com.example.mewanchathuranga.amca.Model;
 
 public class PendingDelivery {
     public String customerName = this.customerName;
-    public String dTimeFrame = this.dTimeFrame;
     public String deliAdd = this.deliAdd;
     public String noOfItems = this.noOfItems;
-    public String orderNo = this.orderNo;
     public String orderTime = this.orderTime;
-    public String restName = this.restName;
     public String totalAmount = this.totalAmount;
+    public String latLng = this.latLng;
 
-    public String getRestName() {
-        return this.restName;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setRestName(String restName) {
-        this.restName = restName;
+    public PendingDelivery(){}
+
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getDeliAdd() {
-        return this.deliAdd;
+        return deliAdd;
     }
 
     public void setDeliAdd(String deliAdd) {
@@ -31,50 +32,44 @@ public class PendingDelivery {
     }
 
     public String getNoOfItems() {
-        return this.noOfItems;
+        return noOfItems;
     }
 
     public void setNoOfItems(String noOfItems) {
         this.noOfItems = noOfItems;
     }
 
-    public String getOrderNo() {
-        return this.orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
-
     public String getOrderTime() {
-        return this.orderTime;
+        return orderTime;
     }
 
     public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
     }
 
-    public String getdTimeFrame() {
-        return this.dTimeFrame;
-    }
-
-    public void setdTimeFrame(String dTimeFrame) {
-        this.dTimeFrame = dTimeFrame;
-    }
-
     public String getTotalAmount() {
-        return this.totalAmount;
+        return totalAmount;
     }
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public String getCustomerName() {
-        return this.customerName;
+    public String getLatLng() {
+        return latLng;
     }
 
-    public void setCustomerName(String customerName) {
+    public void setLatLng(String latLng) {
+        this.latLng = latLng;
+    }
+
+    public PendingDelivery(String customerName, String deliAdd, String noOfItems, String orderTime, String totalAmount, String latLng) {
+
         this.customerName = customerName;
+        this.deliAdd = deliAdd;
+        this.noOfItems = noOfItems;
+        this.orderTime = orderTime;
+        this.totalAmount = totalAmount;
+        this.latLng = latLng;
     }
 }

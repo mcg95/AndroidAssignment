@@ -8,7 +8,6 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,15 +27,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mewanchathuranga.amca.Adapters.PendingDeliveryListAdapter;
+import com.example.mewanchathuranga.amca.BuildConfig;
 import com.example.mewanchathuranga.amca.Model.PendingDelivery;
 import com.example.mewanchathuranga.amca.R;
 import com.example.mewanchathuranga.amca.listener.MyItemClickListener;
-import com.firebase.ui.storage.BuildConfig;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentChange.Type;
 import com.google.firebase.firestore.DocumentReference;
@@ -53,13 +48,10 @@ public class JobTab extends Fragment implements MyItemClickListener {
     private static final String FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION";
     private static final String FIRE_LOG = "Fire_log";
     private static final int PERMISSION_REQUEST_CODE = 1234;
-    public double Lat;
-    public double Lng;
     private Button completeBtn;
     private Context context;
     private FirebaseFirestore db;
     private EditText delAddress;
-    private EditText delTimeFrame;
     public List<PendingDelivery> deliList;
     private DocumentReference documentReference;
     private int gPosition;
@@ -71,23 +63,24 @@ public class JobTab extends Fragment implements MyItemClickListener {
     private String orderRef = "Orders";
     private EditText orderTime;
     private RecyclerView pendingJobRV;
-    private EditText restName;
+    private EditText custName;
     private EditText totalAmount;
+    private String Lat;
+    private String Lng;
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.job_tab, container, false);
         this.db = FirebaseFirestore.getInstance();
-        this.documentReference = this.db.collection(this.orderRef).document();
+        this.documentReference = this.db.collection("Orders").document();
         this.deliList = new ArrayList();
         retrievePendingDelivery();
         this.mDataAdapter = new PendingDeliveryListAdapter(this.context, this.deliList);
         this.orderNo = (EditText) view.findViewById(R.id.orderNumberText);
         this.orderTime = (EditText) view.findViewById(R.id.orderTimeText);
         this.delAddress = (EditText) view.findViewById(R.id.deliveryAddressText);
-        this.restName = (EditText) view.findViewById(R.id.restNameText);
+        this.custName = (EditText) view.findViewById(R.id.restNameText);
         this.noOfItems = (EditText) view.findViewById(R.id.noOfItemsText);
-        this.delTimeFrame = (EditText) view.findViewById(R.id.timeFrameText);
         this.totalAmount = (EditText) view.findViewById(R.id.totalAmountText);
         Button completeBtn = (Button) view.findViewById(R.id.completeDeliBtn);
         RecyclerView pendingJobRV = (RecyclerView) view.findViewById(R.id.pendingJobRV);
@@ -102,7 +95,7 @@ public class JobTab extends Fragment implements MyItemClickListener {
             }
         });
         getLocationPermissions();
-        getDeviceLocation();
+   //     getDeviceLocation();
         return view;
     }
 
@@ -153,32 +146,6 @@ public class JobTab extends Fragment implements MyItemClickListener {
         }
     }
 
-    private void getDeviceLocation() {
-        Log.d("ContentValues", "Obtaining Device Current Location");
-        this.mFLPC = LocationServices.getFusedLocationProviderClient(getActivity());
-        try {
-            if (this.mPermissionsGranted.booleanValue()) {
-                this.mFLPC.getLastLocation().addOnCompleteListener(new OnCompleteListener() {
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
-                            Location currentLocation = (Location) task.getResult();
-                            LatLng tempCurrentLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                            double tLng = tempCurrentLocation.longitude;
-                            double tLat = tempCurrentLocation.latitude;
-                            JobTab.this.Lng = tLng;
-                            JobTab.this.Lat = tLat;
-                            Toast.makeText(JobTab.this.getActivity(), "Current Location - Lat: " + tLat + " Lng: " + tLng, Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        Log.d("ContentValues", "onComplete: Location NULL");
-                        Toast.makeText(JobTab.this.getActivity(), "Location was not retrievable.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        } catch (SecurityException e) {
-            Log.e("ContentValues", "getDeviceLocation: Security Exception" + e.getMessage());
-        }
-    }
 
     public void onItemClick(final View view, final int position) {
         Builder builder = new Builder(getActivity());
@@ -211,8 +178,9 @@ public class JobTab extends Fragment implements MyItemClickListener {
                 });
                 builder.setPositiveButton("Navigate to Location", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intentWaze = new Intent("android.intent.action.VIEW", Uri.parse("https://waze.com/ul?ll=" + JobTab.this.Lat + "," + JobTab.this.Lng + "&navigate=yes"));
-                        Log.d("ContentValues", "setUserVisibleHint: Lat: " + JobTab.this.Lat + "Lng: " + JobTab.this.Lng);
+                        Intent intentWaze = new Intent("android.intent.action.VIEW",
+                                Uri.parse("https://waze.com/ul?ll=" + Lat + "," + Lng + "&navigate=yes"));
+                        Log.d("ContentValues", "setUserVisibleHint: Lat: "  + "Lng: " + JobTab.this.Lng);
                         JobTab.this.getActivity().startActivity(intentWaze);
                     }
                 });
@@ -225,27 +193,30 @@ public class JobTab extends Fragment implements MyItemClickListener {
         PendingDelivery DeliList = (PendingDelivery) this.deliList.get(position);
         this.gPosition = position;
         if (DeliList != null) {
-            Toast.makeText(getActivity(), DeliList.getOrderNo(), Toast.LENGTH_SHORT).show();
-            Log.d("ContentValues", "DeliList: " + DeliList.getdTimeFrame());
-            String textOrderNo = DeliList.getOrderNo();
+            Toast.makeText(getActivity(), db.collection("Orders").document().getId(), Toast.LENGTH_SHORT).show();
+            String textOrderNo = db.collection("Orders").document().getId();
             String textOrderTime = DeliList.getOrderTime();
-            String textRestName = DeliList.getRestName();
+            String textRestName = DeliList.getCustomerName();
             String textDeliAdd = DeliList.getDeliAdd();
             String textNoItems = DeliList.getNoOfItems();
-            String textDeliTimeFrame = DeliList.getdTimeFrame();
             String textTotalAmount = DeliList.getTotalAmount();
             this.orderNo.setText(textOrderNo);
-            this.restName.setText(textRestName);
+            this.custName.setText(textRestName);
             this.delAddress.setText(textDeliAdd);
             this.noOfItems.setText(textNoItems);
-            this.delTimeFrame.setText(textDeliTimeFrame);
             this.orderTime.setText(textOrderTime);
             this.totalAmount.setText(textTotalAmount);
+            String LatLng = DeliList.getLatLng();
+            String[] separated = LatLng.split(",");
+            String tempLat = separated[0].trim();
+            String tempLng = separated[1].trim();
+            Lat = tempLat;
+            Lng = tempLng;
         }
     }
 
     private void endDelivery(View view, final int position) {
-        if (((PendingDelivery) this.deliList.get(position)) != null) {
+      if (((PendingDelivery) this.deliList.get(position)) != null) {
             Builder builder = new Builder(getActivity());
             builder.setCancelable(true);
             builder.setTitle("Confirm Delivery Completed");
@@ -254,10 +225,9 @@ public class JobTab extends Fragment implements MyItemClickListener {
                 public void onClick(DialogInterface dialog, int which) {
                     JobTab.this.mDataAdapter.deleteItem(position);
                     JobTab.this.orderNo.setText(BuildConfig.FLAVOR);
-                    JobTab.this.restName.setText(BuildConfig.FLAVOR);
+                    JobTab.this.custName.setText(BuildConfig.FLAVOR);
                     JobTab.this.delAddress.setText(BuildConfig.FLAVOR);
                     JobTab.this.noOfItems.setText(BuildConfig.FLAVOR);
-                    JobTab.this.delTimeFrame.setText(BuildConfig.FLAVOR);
                     JobTab.this.orderTime.setText(BuildConfig.FLAVOR);
                     JobTab.this.totalAmount.setText(BuildConfig.FLAVOR);
                     Toast.makeText(JobTab.this.getActivity(), "Delivery Completed! Thank You!", Toast.LENGTH_SHORT).show();

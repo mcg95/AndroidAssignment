@@ -13,6 +13,7 @@ public class FoodMenuModel {
         this.image = image;
         this.categoryid = categoryid;
     }
+    public FoodMenuModel(){}
 
     public String getName() {
         return this.name;

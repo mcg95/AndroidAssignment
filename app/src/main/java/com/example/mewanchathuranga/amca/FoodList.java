@@ -42,10 +42,10 @@ public class FoodList extends AppCompatActivity implements MyItemClickListener {
     public RecyclerView recycler_food;
     private TextView txtUserEmail;
     public View view;
-
+    private com.melnykov.fab.FloatingActionButton floatingActionButton;
     protected void onCreate(Bundle var1) {
         super.onCreate(var1);
-        this.setContentView(R.layout.food_list);
+        this.setContentView(R.layout.activity_food_list);
         this.mAuth = FirebaseAuth.getInstance();
         this.foodList = new ArrayList();
         this.db = FirebaseDatabase.getInstance();
@@ -57,6 +57,9 @@ public class FoodList extends AppCompatActivity implements MyItemClickListener {
         this.layoutManager = new LinearLayoutManager(this);
         this.recycler_food.setLayoutManager(this.layoutManager);
         this.recycler_food.setAdapter(this.mAdapter);
+        this.floatingActionButton = (com.melnykov.fab.FloatingActionButton) this.findViewById(R.id.view_cart_fab);
+        context = getApplicationContext();
+
         if(this.getIntent() != null) {
             this.categoryid = this.getIntent().getStringExtra("categoryid");
         }
@@ -64,6 +67,14 @@ public class FoodList extends AppCompatActivity implements MyItemClickListener {
         if(!this.categoryid.isEmpty() && this.categoryid != null) {
             this.retrieveFoodList(this.categoryid);
         }
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             Intent buyCart = new Intent(context, BuyCart.class);
+             startActivity(buyCart);
+            }
+        });
 
     }
 

@@ -30,16 +30,19 @@ public class FoodListAdapter extends Adapter<FoodListAdapter.ViewHolder> impleme
     private TextView priceTxt;
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder implements OnClickListener {
-        public ImageView foodImg = ((ImageView) this.mView.findViewById(R.id.food_image));
         private MyItemClickListener mListener;
         public View mView;
-        public TextView nameTxt = ((TextView) this.mView.findViewById(R.id.food_text));
+        public TextView nameTxt;
+        public ImageView foodImg;
 
         public ViewHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
             this.mView = itemView;
             this.mListener = listener;
             itemView.setOnClickListener(this);
+            nameTxt = mView.findViewById(R.id.food_text);
+            foodImg = mView.findViewById(R.id.food_image);
+
         }
 
         public void onClick(View v) {

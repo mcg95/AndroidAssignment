@@ -25,17 +25,23 @@ public class PendingDeliveryListAdapter extends Adapter<PendingDeliveryListAdapt
     public MyItemClickListener mItemClickListener;
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder implements OnClickListener {
-        TextView delAddText = ((TextView) this.mView.findViewById(R.id.deliveryAddressText));
-        TextView itemsText = ((TextView) this.mView.findViewById(R.id.noOfItemsText));
+
         private MyItemClickListener mListener;
         View mView;
-        TextView restNameText = ((TextView) this.mView.findViewById(R.id.restaurantNameText));
+        public TextView custNameText;
+        public TextView delAddText;
+        public TextView qtyText;
+
+
 
         public ViewHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
             this.mView = itemView;
             this.mListener = listener;
             itemView.setOnClickListener(this);
+            delAddText = mView.findViewById(R.id.deliveryAddressText);
+            qtyText = mView.findViewById(R.id.noOfItemsText);
+            custNameText = mView.findViewById(R.id.restaurantNameText);
         }
 
         public void onClick(View view) {
@@ -55,9 +61,8 @@ public class PendingDeliveryListAdapter extends Adapter<PendingDeliveryListAdapt
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.restNameText.setText(((PendingDelivery) this.getPendingList.get(position)).getRestName());
         holder.delAddText.setText(((PendingDelivery) this.getPendingList.get(position)).getDeliAdd());
-        holder.itemsText.setText(((PendingDelivery) this.getPendingList.get(position)).getNoOfItems());
+        holder.qtyText.setText(((PendingDelivery) this.getPendingList.get(position)).getNoOfItems());
     }
 
     public int getItemCount() {

@@ -4,10 +4,8 @@ package com.example.mewanchathuranga.amca;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +56,8 @@ public class OrderHome1 extends AppCompatActivity implements OnNavigationItemSel
     public RecyclerView recycler_menu;
     private TextView txtMenuName;
     private TextView txtUserEmail;
+    FloatingActionButton buyCart;
     public View view;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.mewanchathuranga.amca.R.layout.activity_order_home1);
@@ -72,19 +70,15 @@ public class OrderHome1 extends AppCompatActivity implements OnNavigationItemSel
         this.mRef = this.db.getReference().child("Menu");
         this.mAdapter = new OrderMenuAdapter(this, this.menuList);
         this.mAdapter.setOnItemClickListener(this);
-        ((FloatingActionButton) findViewById(com.example.mewanchathuranga.amca.R.id.fab)).setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", 0).setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = (DrawerLayout) findViewById(com.example.mewanchathuranga.amca.R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, com.example.mewanchathuranga.amca.R.string.navigation_drawer_open, com.example.mewanchathuranga.amca.R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(com.example.mewanchathuranga.amca.R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        this.txtUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(com.example.mewanchathuranga.amca.R.id.emailText);
-        this.txtUserEmail.setText("xxxx@gmail.com");
+        this.txtUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(com.example.mewanchathuranga.amca.R.id.currentUserEmail);
+        this.txtUserEmail.setText(mAuth.getCurrentUser().getEmail());
         this.recycler_menu = (RecyclerView) findViewById(com.example.mewanchathuranga.amca.R.id.recycler_menu);
         this.recycler_menu.setHasFixedSize(true);
         this.layoutManager = new LinearLayoutManager(this);

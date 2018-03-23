@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private String pass;
     private EditText passF;
     private Button regBtn;
+    private Button loginCustBtn;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +36,11 @@ public class LoginActivity extends AppCompatActivity {
         this.mAuth = FirebaseAuth.getInstance();
         final EditText emailF = (EditText) findViewById(R.id.lEmailText);
         final EditText passF = (EditText) findViewById(R.id.lPassText);
-        Button loginBtn = (Button) findViewById(R.id.loginButton);
-        Button regBtn = (Button) findViewById(R.id.regButton);
+        Button loginRyderBtn = (Button) findViewById(R.id.loginButtonRyder);
+        regBtn = (Button) findViewById(R.id.regButton);
+        loginCustBtn = (Button) findViewById(R.id.loginButtonCust);
+
+
         this.mAuthListener = new AuthStateListener() {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
@@ -48,11 +52,20 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
-        loginBtn.setOnClickListener(new OnClickListener() {
+
+        loginRyderBtn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 LoginActivity.this.email = emailF.getText().toString();
                 LoginActivity.this.pass = passF.getText().toString();
-                LoginActivity.this.signIn();
+                LoginActivity.this.signInRyder();
+            }
+        });
+
+        loginCustBtn.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                LoginActivity.this.email = emailF.getText().toString();
+                LoginActivity.this.pass = passF.getText().toString();
+                LoginActivity.this.signInCust();
             }
         });
     }
@@ -62,15 +75,31 @@ public class LoginActivity extends AppCompatActivity {
         this.mAuth.addAuthStateListener(this.mAuthListener);
     }
 
-    private void signIn() {
+    private void signInRyder() {
         if (TextUtils.isEmpty(this.email) || TextUtils.isEmpty(this.pass)) {
             Toast.makeText(this, "Please fill in the Email and Password field.", Toast.LENGTH_LONG).show();
         } else {
             this.mAuth.signInWithEmailAndPassword(this.email, this.pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                public void onComplete(@NonNull Task<AuthResult> task) {
+                public void onComplete(Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "Sign in Successful!", Toast.LENGTH_LONG).show();
                         LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        return;
+                    }
+                    Toast.makeText(LoginActivity.this, "Sign in Failed!", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+    private void signInCust(){
+        if (TextUtils.isEmpty(this.email) || TextUtils.isEmpty(this.pass)) {
+            Toast.makeText(this, "Please fill in the Email and Password field.", Toast.LENGTH_LONG).show();
+        } else {
+            this.mAuth.signInWithEmailAndPassword(this.email, this.pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                public void onComplete(Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Sign in Successful!", Toast.LENGTH_LONG).show();
+                        LoginActivity.this.startActivity(new Intent(LoginActivity.this, OrderHome1.class));
                         return;
                     }
                     Toast.makeText(LoginActivity.this, "Sign in Failed!", Toast.LENGTH_LONG).show();

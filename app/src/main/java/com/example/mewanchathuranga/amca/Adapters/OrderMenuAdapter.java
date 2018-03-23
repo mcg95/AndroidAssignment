@@ -26,18 +26,22 @@ public class OrderMenuAdapter extends Adapter<OrderMenuAdapter.ViewHolder> imple
     private MyItemClickListener itemClickListener;
     public List<FoodMenuModel> menuList;
     public TextView txtMenuName;
+    public View mView;
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder implements OnClickListener {
-        public ImageView imgMenu = ((ImageView) this.mView.findViewById(R.id.menu_image));
         private MyItemClickListener mListener;
-        View mView;
-        public TextView txtMenuName = ((TextView) this.mView.findViewById(R.id.menu_text));
+View mView;
+        public ImageView imgMenu;
+        public TextView txtMenuName ;
 
         public ViewHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
             this.mView = itemView;
             this.mListener = listener;
+
             itemView.setOnClickListener(this);
+            imgMenu = mView.findViewById(R.id.menu_image);
+            txtMenuName = mView.findViewById(R.id.menu_text);
         }
 
         public void onClick(View view) {
@@ -57,9 +61,9 @@ public class OrderMenuAdapter extends Adapter<OrderMenuAdapter.ViewHolder> imple
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_list, parent, false);
-        this.txtMenuName = (TextView) view.findViewById(R.id.menu_text);
-        this.imgMenu = (ImageView) view.findViewById(R.id.menu_image);
+        View view = LayoutInflater.from(parent.getContext()).inflate(com.example.mewanchathuranga.amca.R.layout.menu_list, parent, false);
+        this.txtMenuName = view.findViewById(com.example.mewanchathuranga.amca.R.id.menu_text);
+        this.imgMenu = view.findViewById(com.example.mewanchathuranga.amca.R.id.menu_image);
         return new ViewHolder(view, this.itemClickListener);
     }
 
