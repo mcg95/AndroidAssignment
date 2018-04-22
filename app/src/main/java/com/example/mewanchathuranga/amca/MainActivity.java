@@ -5,8 +5,6 @@ package com.example.mewanchathuranga.amca;
  */
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
@@ -20,9 +18,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.example.mewanchathuranga.amca.Tabs.JobTab;
 import com.firebase.ui.storage.R;
 import com.google.firebase.auth.ActionCodeResult;
@@ -78,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(com.example.mewanchathuranga.amca.R.id.tabs);
         this.mViewPager.addOnPageChangeListener(new TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new ViewPagerOnTabSelectedListener(this.mViewPager));
-        ((FloatingActionButton) findViewById(com.example.mewanchathuranga.amca.R.id.fab)).setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", 0).setAction("Action", null).show();
-            }
-        });
+      //  ((FloatingActionButton) findViewById(com.example.mewanchathuranga.amca.R.id.fab)).setOnClickListener(new OnClickListener() {
+          //  public void onClick(View view) {
+      //          Snackbar.make(view, "Replace with your own action", 0).setAction("Action", null).show();
+     //       }
+  //      });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
