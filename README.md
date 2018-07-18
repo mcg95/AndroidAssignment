@@ -6,5 +6,6 @@ It is a food ordering and delivery application(2 in 1) which uses thirdparty lib
 It allows users to order food and delivery riders to get a list of pending orders which they can pick and deliver. Navigation to the delivery location is done with the help of Waze.
 
 Language: Java(Android)
+
 Grade: A
 
